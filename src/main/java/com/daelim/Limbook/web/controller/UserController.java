@@ -1,15 +1,12 @@
-package com.daelim.Limbook.controller;
+package com.daelim.Limbook.web.controller;
 
-import com.daelim.Limbook.controller.dto.UserSignUpDTO;
+import com.daelim.Limbook.web.controller.dto.UserSignUpDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 
 @Slf4j
 @RequestMapping("/users")
