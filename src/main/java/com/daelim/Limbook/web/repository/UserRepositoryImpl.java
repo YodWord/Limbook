@@ -20,6 +20,7 @@ public class UserRepositoryImpl implements UserRepository{
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //회원가입
     public User save(User user){
 
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
@@ -37,4 +38,9 @@ public class UserRepositoryImpl implements UserRepository{
 
         return user;
     }
+
+
+
+
+
 }

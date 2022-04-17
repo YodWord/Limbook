@@ -20,8 +20,8 @@ public class UserController {
 
     private final UserService userService;
 
-
-    //TODO : bindingResult로 오류 컨트롤
+    //회원가입
+    //TODO: bindingResult로 오류 컨트롤
     @PostMapping
     public HashMap<String, Object> signUp(@RequestBody @Validated UserSignUpDTO userSignUpDTO, BindingResult bindingResult)throws Exception{
 
@@ -44,6 +44,10 @@ public class UserController {
         return response;
     }
 
+    //TODO: 아이디 중복체크 (필요할시)
 
-    //TODO: 로그인 기능 만들기
+
+    //TODO: 로그인 / 로그아웃 기능
+
+
 }
