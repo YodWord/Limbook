@@ -1,5 +1,6 @@
 package com.daelim.Limbook.web.controller;
 
+import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.controller.dto.UserLoginDTO;
 import com.daelim.Limbook.web.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserSignUpDTO;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 @Slf4j
@@ -60,9 +62,31 @@ public class UserController {
     @PostMapping("/login")
     public HashMap<String,Object> login(@RequestBody @Validated UserLoginDTO userLoginDTO, BindingResult bindingResult, HttpServletRequest request) throws Exception{
 
+        /*
+        if(bindingResult.hasErrors()){
 
+        }
+        */
 
-        return null;
+        HashMap<String,Object> response = new HashMap<>();
+
+        User user = userService.login(userLoginDTO);
+
+        if(user == null || !user.getId().equals(userLoginDTO.getUser_id())
+                && user.getPw().equals(userLoginDTO.getUser_pw())){
+            response.put("result","입력값을 확인하세요");
+            return response;
+        }
+
+        response.put("user_id", user.getId());
+        response.put("user_name", user.getName());
+        response.put("user_phone", user.getPhone());
+        response.put("user_department", user.getDepartment());
+
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_USER,user);
+
+        return response;
     }
 
     //TODO: 로그아웃
