@@ -1,14 +1,17 @@
 package com.daelim.Limbook.web.repository;
 
 
-import com.daelim.Limbook.web.controller.domain.User;
+import com.daelim.Limbook.web.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -39,8 +42,22 @@ public class UserRepositoryImpl implements UserRepository{
         return user;
     }
 
+    public Optional<User> findbyId(String id){
 
+        String sql = "select * from user where user_id = ?";
 
+        List<User> result = jdbcTemplate.query(sql, userRowMapper(), id);
 
+        return result.stream().findAny();
+    }
+
+    private RowMapper<User> userRowMapper() {
+        return (rs, rowNum) -> {
+            User user = new User();
+            user.setId(rs.getString("user_id"));
+            user.setPw(rs.getString("user_pw"));
+            return user;
+        };
+    }
 
 }

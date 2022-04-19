@@ -1,15 +1,16 @@
 package com.daelim.Limbook.web.controller;
 
-import com.daelim.Limbook.web.controller.domain.User;
+import com.daelim.Limbook.web.controller.dto.UserLoginDTO;
+import com.daelim.Limbook.web.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserSignUpDTO;
 import com.daelim.Limbook.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @Slf4j
@@ -26,6 +27,13 @@ public class UserController {
     public HashMap<String, Object> signUp(@RequestBody @Validated UserSignUpDTO userSignUpDTO, BindingResult bindingResult)throws Exception{
 
         HashMap<String, Object> response = new HashMap<>();
+
+/*
+        if(bindingResult.hasErrors()){
+            response.put("result","오류");
+            return response;
+        }
+*/
 
         User user = new User(userSignUpDTO);
 
@@ -47,7 +55,16 @@ public class UserController {
     //TODO: 아이디 중복체크 (필요할시)
 
 
-    //TODO: 로그인 / 로그아웃 기능
 
+    //로그인
+    @PostMapping("/login")
+    public HashMap<String,Object> login(@RequestBody @Validated UserLoginDTO userLoginDTO, BindingResult bindingResult, HttpServletRequest request) throws Exception{
+
+
+
+        return null;
+    }
+
+    //TODO: 로그아웃
 
 }
