@@ -2,7 +2,7 @@ package com.daelim.Limbook.web.controller;
 
 import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.controller.dto.UserLoginDTO;
-import com.daelim.Limbook.web.domain.User;
+import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserSignUpDTO;
 import com.daelim.Limbook.web.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -89,6 +89,22 @@ public class UserController {
         return response;
     }
 
-    //TODO: 로그아웃
+    //로그아웃
+    @PostMapping("/logout")
+    public HashMap<String, String> logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            session.invalidate();
+        }
+
+        HashMap<String, String> resultMap = new HashMap<>();
+        resultMap.put("result", "success");
+
+        return resultMap;
+
+    }
+
+
 
 }

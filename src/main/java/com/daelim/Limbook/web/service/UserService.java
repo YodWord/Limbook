@@ -1,9 +1,7 @@
 package com.daelim.Limbook.web.service;
 
 import com.daelim.Limbook.web.controller.dto.UserLoginDTO;
-import com.daelim.Limbook.web.domain.User;
-
-import java.util.Optional;
+import com.daelim.Limbook.domain.User;
 
 public interface UserService {
 

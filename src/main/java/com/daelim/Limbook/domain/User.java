@@ -1,4 +1,4 @@
-package com.daelim.Limbook.web.domain;
+package com.daelim.Limbook.domain;
 
 import com.daelim.Limbook.web.controller.dto.UserSignUpDTO;
 import lombok.*;

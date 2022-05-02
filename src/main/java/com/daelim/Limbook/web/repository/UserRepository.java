@@ -1,6 +1,6 @@
 package com.daelim.Limbook.web.repository;
 
-import com.daelim.Limbook.web.domain.User;
+import com.daelim.Limbook.domain.User;
 
 import java.util.Optional;
 

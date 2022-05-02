@@ -1,4 +1,4 @@
-package com.daelim.Limbook.web.domain;
+package com.daelim.Limbook.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
