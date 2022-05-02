@@ -1,4 +1,4 @@
-package com.daelim.Limbook.web.controller.dto;
+package com.daelim.Limbook.web.controller.dto.UserDTO;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.daelim.Limbook.web.service;
 
-import com.daelim.Limbook.web.controller.dto.UserLoginDTO;
+import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

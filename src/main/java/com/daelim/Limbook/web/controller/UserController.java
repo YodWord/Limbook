@@ -1,9 +1,9 @@
 package com.daelim.Limbook.web.controller;
 
 import com.daelim.Limbook.web.SessionConst;
-import com.daelim.Limbook.web.controller.dto.UserLoginDTO;
+import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
-import com.daelim.Limbook.web.controller.dto.UserSignUpDTO;
+import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
 import com.daelim.Limbook.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +30,12 @@ public class UserController {
 
         HashMap<String, Object> response = new HashMap<>();
 
-/*
+
         if(bindingResult.hasErrors()){
             response.put("result","오류");
             return response;
         }
-*/
+
 
         User user = new User(userSignUpDTO);
 
@@ -62,13 +62,12 @@ public class UserController {
     @PostMapping("/login")
     public HashMap<String,Object> login(@RequestBody @Validated UserLoginDTO userLoginDTO, BindingResult bindingResult, HttpServletRequest request) throws Exception{
 
-        /*
-        if(bindingResult.hasErrors()){
-
-        }
-        */
-
         HashMap<String,Object> response = new HashMap<>();
+
+        if(bindingResult.hasErrors()){
+            response.put("result","오류");
+            return response;
+        }
 
         User user = userService.login(userLoginDTO);
 

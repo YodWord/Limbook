@@ -1,6 +1,6 @@
 package com.daelim.Limbook.domain;
 
-import com.daelim.Limbook.web.controller.dto.UserSignUpDTO;
+import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
 import lombok.*;
 
 @NoArgsConstructor
