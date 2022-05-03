@@ -1,15 +1,15 @@
-package com.daelim.Limbook.web.service;
+package com.daelim.Limbook.web.service.users;
 
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
-import com.daelim.Limbook.web.repository.UserRepository;
+import com.daelim.Limbook.web.repository.users.UserRepository;
+import com.daelim.Limbook.web.service.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-@Repository
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;

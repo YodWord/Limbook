@@ -1,4 +1,4 @@
-package com.daelim.Limbook.web.service;
+package com.daelim.Limbook.web.service.users;
 
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;

@@ -1,4 +1,4 @@
-package com.daelim.Limbook.web.repository;
+package com.daelim.Limbook.web.repository.users;
 
 import com.daelim.Limbook.domain.User;
 

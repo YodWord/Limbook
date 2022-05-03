@@ -4,7 +4,7 @@ import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
-import com.daelim.Limbook.web.service.UserService;
+import com.daelim.Limbook.web.service.users.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -24,7 +24,6 @@ public class UserController {
     private final UserService userService;
 
     //회원가입
-    //TODO: bindingResult로 오류 컨트롤
     @PostMapping
     public HashMap<String, Object> signUp(@RequestBody @Validated UserSignUpDTO userSignUpDTO, BindingResult bindingResult)throws Exception{
 
@@ -98,7 +97,7 @@ public class UserController {
         }
 
         HashMap<String, String> resultMap = new HashMap<>();
-        resultMap.put("result", "success");
+        resultMap.put("result", "성공");
 
         return resultMap;
 

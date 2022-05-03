@@ -1,4 +1,4 @@
-package com.daelim.Limbook.web.repository;
+package com.daelim.Limbook.web.repository.users;
 
 
 import com.daelim.Limbook.domain.User;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
