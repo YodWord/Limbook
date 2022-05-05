@@ -1,6 +1,5 @@
 package com.daelim.Limbook.web.controller;
 
-import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
