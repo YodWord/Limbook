@@ -1,6 +1,6 @@
 package com.daelim.Limbook.web.argumentResolver;
 
-import com.daelim.Limbook.SessionConst;
+import com.daelim.Limbook.web.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

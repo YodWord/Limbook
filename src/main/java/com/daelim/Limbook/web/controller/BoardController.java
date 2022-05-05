@@ -31,7 +31,7 @@ public class BoardController {
         HashMap <String, Object> response = new HashMap<>();
 
         if(user == null){
-            throw new IllegalArgumentException("로그인이 필요합니다.");
+            throw new Exception("로그인이 필요합니다.");
         }
 
         if(bindingResult.hasErrors()){
