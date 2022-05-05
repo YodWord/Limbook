@@ -1,4 +1,4 @@
-package com.daelim.Limbook.argumentResolver;
+package com.daelim.Limbook.web.argumentResolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

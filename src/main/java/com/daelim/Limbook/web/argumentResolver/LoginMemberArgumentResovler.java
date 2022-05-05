@@ -1,5 +1,6 @@
-package com.daelim.Limbook.argumentResolver;
+package com.daelim.Limbook.web.argumentResolver;
 
+import com.daelim.Limbook.web.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -11,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
-public class LoginArgumentResovler implements HandlerMethodArgumentResolver {
-
-    private static final String SESSION_ID = "sessionId";
+public class LoginMemberArgumentResovler implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -44,9 +43,6 @@ public class LoginArgumentResovler implements HandlerMethodArgumentResolver {
             return null;
         }
 
-        // 세션 내 해당 속성이 없을 경우 null
-        // 있으면 sessionId 반환
-        Object sessionId = session.getAttribute(SESSION_ID);
-        return sessionId;
+        return session.getAttribute(SessionConst.LOGIN_USER);
     }
 }

@@ -1,5 +1,5 @@
 package com.daelim.Limbook.web;
 
-public interface SessionConst {
-    String LOGIN_USER = "LOGIN_USER";
+public class SessionConst {
+    public static final String LOGIN_USER = "LOGIN_USER";
 }

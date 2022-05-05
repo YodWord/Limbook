@@ -76,10 +76,15 @@ public class UserController {
             return response;
         }
 
-        response.put("user_id", user.getId());
-        response.put("user_name", user.getName());
-        response.put("user_phone", user.getPhone());
-        response.put("user_department", user.getDepartment());
+        HashMap<String, String> userResponse = new HashMap<>();
+
+        userResponse.put("user_id", user.getId());
+        userResponse.put("user_name", user.getName());
+        userResponse.put("user_phone", user.getPhone());
+        userResponse.put("user_department", user.getDepartment());
+
+        response.put("result","성공");
+        response.put("user",userResponse);
 
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_USER,user);

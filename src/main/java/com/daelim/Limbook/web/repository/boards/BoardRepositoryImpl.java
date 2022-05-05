@@ -9,9 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +28,6 @@ public class BoardRepositoryImpl implements BoardRepository{
     @Override
     public Board saveBoard(CreateBoardDTO createBoardDTO, User user) throws Exception {
 
-        Number key = null;
 
         Board board = new Board();
 
@@ -40,7 +37,7 @@ public class BoardRepositoryImpl implements BoardRepository{
         board.setBoard_create_date(Timestamp.valueOf(LocalDateTime.now()));
 
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        jdbcInsert.withTableName("board");
+        jdbcInsert.withTableName("board").usingGeneratedKeyColumns("board_number");
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("user_id", board.getUser_id());
@@ -48,13 +45,9 @@ public class BoardRepositoryImpl implements BoardRepository{
         params.put("board_contents", board.getBoard_contents());
         params.put("board_create_date", board.getBoard_create_date());
 
-        try {
-            key = jdbcInsert.executeAndReturnKey(params);
-        }catch (Exception e) {
-            throw new Exception("DB 에러");
-        }
+        jdbcInsert.execute(params);
 
-        return findById(key.intValue()).get();
+        return board;
     }
 
 
