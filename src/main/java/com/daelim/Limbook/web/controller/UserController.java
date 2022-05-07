@@ -1,6 +1,6 @@
 package com.daelim.Limbook.web.controller;
 
-import com.daelim.Limbook.web.SessionConst;
+import com.daelim.Limbook.SessionConst;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
@@ -59,7 +59,8 @@ public class UserController {
 
     //로그인
     @PostMapping("/login")
-    public HashMap<String,Object> login(@RequestBody @Validated UserLoginDTO userLoginDTO, BindingResult bindingResult, HttpServletRequest request) throws Exception{
+    public HashMap<String,Object> login(@RequestBody @Validated UserLoginDTO userLoginDTO, BindingResult bindingResult,
+                                        HttpServletRequest request) throws Exception{
 
         HashMap<String,Object> response = new HashMap<>();
 
@@ -87,7 +88,7 @@ public class UserController {
         response.put("user",userResponse);
 
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_USER,user);
+        session.setAttribute(SessionConst.LOGIN_USER, user);
 
         return response;
     }

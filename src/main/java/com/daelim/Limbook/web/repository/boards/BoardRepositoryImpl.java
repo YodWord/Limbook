@@ -31,6 +31,8 @@ public class BoardRepositoryImpl implements BoardRepository{
 
         Board board = new Board();
 
+        log.info("board repository 실행" + user.getId());
+
         board.setUser_id(user.getId());
         board.setBoard_title(createBoardDTO.getBoard_title());
         board.setBoard_contents(createBoardDTO.getBoard_contents());

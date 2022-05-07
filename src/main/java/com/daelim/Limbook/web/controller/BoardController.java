@@ -26,7 +26,7 @@ public class BoardController {
 
     @PostMapping
     public HashMap<String, Object> createBoard(@RequestBody @Validated CreateBoardDTO createBoardDTO,
-                                               BindingResult bindingResult, @Login User user)throws Exception{
+                                               BindingResult bindingResult, @Login User user) throws Exception{
 
         HashMap <String, Object> response = new HashMap<>();
 
@@ -38,6 +38,7 @@ public class BoardController {
             response.put("result", "실패");
         }
 
+        log.info("board controller 실행" + user.getId());
         Board board = boardService.createBoard(createBoardDTO, user);
 
         response.put("result", "성공");
