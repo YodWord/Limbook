@@ -20,4 +20,15 @@ public class User {
         this.phone = userSignUpDTO.getUser_phone();
         this.department = userSignUpDTO.getUser_department();
     }
+
+    public static User createUserByDTO(UserSignUpDTO userSignUpDTO) {
+        User user = new User();
+        user.id = userSignUpDTO.getUser_id();
+        user.pw = userSignUpDTO.getUser_pw();
+        user.name = userSignUpDTO.getUser_name();
+        user.phone = userSignUpDTO.getUser_phone();
+        user.department = userSignUpDTO.getUser_department();
+        return user;
+    }
 }
+

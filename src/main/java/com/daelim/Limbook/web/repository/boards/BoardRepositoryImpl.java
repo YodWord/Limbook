@@ -9,10 +9,12 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -21,17 +23,14 @@ public class BoardRepositoryImpl implements BoardRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
-    public BoardRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public BoardRepositoryImpl(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
     public Board saveBoard(CreateBoardDTO createBoardDTO, User user) throws Exception {
 
-
         Board board = new Board();
-
-        log.info("board repository 실행" + user.getId());
 
         board.setUser_id(user.getId());
         board.setBoard_title(createBoardDTO.getBoard_title());
@@ -41,11 +40,13 @@ public class BoardRepositoryImpl implements BoardRepository{
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
         jdbcInsert.withTableName("board").usingGeneratedKeyColumns("board_number");
 
-        HashMap<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("user_id", board.getUser_id());
         params.put("board_title", board.getBoard_title());
         params.put("board_contents", board.getBoard_contents());
         params.put("board_create_date", board.getBoard_create_date());
+
+        log.info("board repository 실행" + params);
 
         jdbcInsert.execute(params);
 

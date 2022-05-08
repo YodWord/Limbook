@@ -1,5 +1,6 @@
 package com.daelim.Limbook.web.controller;
 
+import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.argumentResolver.Login;
 import com.daelim.Limbook.domain.Board;
 import com.daelim.Limbook.domain.User;
@@ -9,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -26,7 +24,10 @@ public class BoardController {
 
     @PostMapping
     public HashMap<String, Object> createBoard(@RequestBody @Validated CreateBoardDTO createBoardDTO,
-                                               BindingResult bindingResult, @Login User user) throws Exception{
+                                               BindingResult bindingResult,
+                                               @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user
+                                               /*@Login User user*/
+                                               ) throws Exception{
 
         HashMap <String, Object> response = new HashMap<>();
 
@@ -38,7 +39,7 @@ public class BoardController {
             response.put("result", "실패");
         }
 
-        log.info("board controller 실행" + user.getId());
+        log.info("board controller 실행" + user);
         Board board = boardService.createBoard(createBoardDTO, user);
 
         response.put("result", "성공");

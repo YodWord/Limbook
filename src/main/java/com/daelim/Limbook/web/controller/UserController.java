@@ -1,6 +1,6 @@
 package com.daelim.Limbook.web.controller;
 
-import com.daelim.Limbook.SessionConst;
+import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
@@ -36,9 +36,9 @@ public class UserController {
         }
 
 
-        User user = new User(userSignUpDTO);
+        User user = User.createUserByDTO(userSignUpDTO);
 
-        userService.signUp(user);
+         userService.signUp(user);
 
         HashMap<String, Object> userResponse = new HashMap<>();
         userResponse.put("user_id", user.getId());
@@ -71,8 +71,7 @@ public class UserController {
 
         User user = userService.login(userLoginDTO);
 
-        if(user == null || !user.getId().equals(userLoginDTO.getUser_id())
-                && user.getPw().equals(userLoginDTO.getUser_pw())){
+        if(user == null || !(user.getId().equals(userLoginDTO.getUser_id()) && user.getPw().equals(userLoginDTO.getUser_pw()))){
             response.put("result","입력값을 확인하세요");
             return response;
         }
@@ -89,6 +88,8 @@ public class UserController {
 
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_USER, user);
+
+        log.info("세션 아이디 " + session.getId());
 
         return response;
     }
