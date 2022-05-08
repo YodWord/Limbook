@@ -3,6 +3,7 @@ package com.daelim.Limbook.web.repository.boards;
 import com.daelim.Limbook.domain.Board;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.BoardDTO.CreateBoardDTO;
+import com.daelim.Limbook.web.controller.dto.BoardDTO.UpdateBoardDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -30,6 +31,8 @@ public class BoardRepositoryImpl implements BoardRepository{
     @Override
     public Board saveBoard(CreateBoardDTO createBoardDTO, User user) throws Exception {
 
+        Number key = null;
+
         Board board = new Board();
 
         board.setUser_id(user.getId());
@@ -48,11 +51,43 @@ public class BoardRepositoryImpl implements BoardRepository{
 
         log.info("board repository 실행" + params);
 
-        jdbcInsert.execute(params);
+        try {
+            key = jdbcInsert.executeAndReturnKey(params);
+        }catch (Exception e) {
+            throw new Exception("DB 에러");
+        }
+
+
+        return findById(key.intValue()).get();
+    }
+
+    @Override
+    public Board updateBoard(UpdateBoardDTO updateBoardDTO, Integer boardId, User user) throws Exception {
+        String sql = "update board set board_title = ?, board_contents = ? where board_number = ?";
+
+        try {
+            jdbcTemplate.update(sql, updateBoardDTO.getBoard_title() ,updateBoardDTO.getBoard_contents(), boardId);
+        }catch (Exception e) {
+            throw new Exception("DB 에러!");
+        }
+
+        return findById(boardId).get();
+    }
+
+    @Override
+    public Board deleteBoard(Integer boardId, User user) throws Exception {
+        Board board = findById(boardId).get();
+
+        String sql = "delete from board where board_number = ?";
+
+        try{
+            jdbcTemplate.update(sql, boardId);
+        }catch (Exception e){
+            throw new Exception("DB에러!");
+        }
 
         return board;
     }
-
 
     @Override
     public Optional<Board> findById(Integer id) throws Exception {
@@ -75,4 +110,5 @@ public class BoardRepositoryImpl implements BoardRepository{
             return board;
         };
     }
+
 }
