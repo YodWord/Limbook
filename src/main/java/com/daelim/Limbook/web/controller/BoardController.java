@@ -25,8 +25,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping
-    public HashMap<String, Object> createBoard(@RequestBody @Validated CreateBoardDTO createBoardDTO,
-                                               BindingResult bindingResult,
+    public HashMap<String, Object> createBoard(@RequestBody @Validated CreateBoardDTO createBoardDTO, BindingResult bindingResult,
                                                @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user
                                                //TODO: @Login 안되는 이유 찾아보기
                                                /*@Login User user*/
@@ -53,6 +52,7 @@ public class BoardController {
         return response;
     }
 
+    //수정
     @PatchMapping("/{boardId}")
     public HashMap<String, Object> updateBoard(@RequestBody @Validated UpdateBoardDTO updateBoardDTO, BindingResult bindingResult,
                                                @PathVariable Integer boardId,

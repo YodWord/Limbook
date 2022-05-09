@@ -20,7 +20,19 @@ public class CommentController {
     //댓글작성
     @PostMapping
     public HashMap<String, Object> createComment (@RequestBody @Validated CreateCommentDTO createCommentDTO, BindingResult bindingResult,
-                                                  @SessionAttribute(value = SessionConst.LOGIN_USER, required = false) User user){
+                                                  @SessionAttribute(value = SessionConst.LOGIN_USER, required = false) User user) throws Exception{
+
+        HashMap<String, Object> response = new HashMap<>();
+
+        if(user == null){
+            throw new Exception("로그인이 필요합니다.");
+        }
+        if(bindingResult.hasErrors()){
+            response.put("result", "실패");
+            return response;
+        }
+
+
 
         return null;
     }

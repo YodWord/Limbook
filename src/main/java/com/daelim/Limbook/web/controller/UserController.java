@@ -89,8 +89,6 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_USER, user);
 
-        log.info("세션 아이디 " + session.getId());
-
         return response;
     }
 
