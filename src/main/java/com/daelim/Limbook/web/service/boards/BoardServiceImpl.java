@@ -30,7 +30,7 @@ public class BoardServiceImpl implements BoardService{
 
         Board board = boardOptional.get();
 
-        if(!board.getUser_id().equals(user.getId())) throw new Exception("작성자만 수정 가능합니다.");
+        if(!board.getUser_id().equals(user.getId())) throw new Exception("작성자만 수정 할 수 있습니다.");
 
         return boardRepository.updateBoard(updateBoardDTO, boardId, user);
     }

@@ -4,6 +4,7 @@ import com.daelim.Limbook.domain.Comment;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
+import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import com.daelim.Limbook.web.service.comments.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,30 @@ public class CommentController {
     }
     
     //댓글수정
+    @PatchMapping("/{commentId}")
+    public HashMap<String, Object> updateComment(@RequestBody @Validated UpdateCommentDTO updateCommentDTO,
+                                                 @PathVariable Integer commentId, BindingResult bindingResult,
+                                                 @SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User user) throws Exception{
 
+        HashMap<String, Object> response = new HashMap<>();
+
+        if(user == null){
+            throw new Exception("로그인이 필요합니다.");
+        }
+
+        if(bindingResult.hasErrors()){
+            response.put("result", "실패");
+            return response;
+        }
+
+
+        Comment updateComment = commentService.updateComment(commentId, updateCommentDTO, user);
+
+        response.put("result", "성공");
+        response.put("comment", updateComment);
+
+        return response;
+    }
     
     //댓글삭제
     

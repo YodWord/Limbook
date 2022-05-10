@@ -3,6 +3,7 @@ package com.daelim.Limbook.web.repository.Comments;
 import com.daelim.Limbook.domain.Comment;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
+import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -41,8 +42,6 @@ public class CommentRepositoryImpl implements CommentRepository{
         params.put("board_comment_contents", comment.getBoardCommentContents());
         params.put("board_comment_create_date", comment.getBoardCreatedAt());
 
-        log.info("params검사 " + params);
-
         try{
             key = jdbcInsert.executeAndReturnKey(params);
         }catch (Exception e){
@@ -50,6 +49,19 @@ public class CommentRepositoryImpl implements CommentRepository{
         }
 
         return findById(key.intValue()).get();
+    }
+
+    @Override
+    public Comment updateComment(Integer commentId, UpdateCommentDTO updateCommentDTO, User user) throws Exception {
+        String sql = "update board_comment set board_comment_contents = ? where board_comment_number = ? ";
+
+        try{
+            jdbcTemplate.update(sql, updateCommentDTO.getComment(), commentId);
+        }catch(Exception e){
+            throw new Exception("DB오류!");
+        }
+
+        return findById(commentId.intValue()).get();
     }
 
     @Override

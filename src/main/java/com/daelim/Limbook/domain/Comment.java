@@ -1,6 +1,7 @@
 package com.daelim.Limbook.domain;
 
 import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
+import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.tomcat.jni.Local;
@@ -24,4 +25,5 @@ public class Comment {
         this.userId = user.getId();
         this.boardCreatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
+
 }
