@@ -13,4 +13,6 @@ public interface CommentService {
 
     public Comment updateComment(Integer commentId, UpdateCommentDTO updateCommentDTO, User usre) throws Exception;
 
+    public Comment deleteComment(Integer commentId, User user) throws Exception;
+
 }

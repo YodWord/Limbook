@@ -37,4 +37,21 @@ public class CommentServiceImpl implements CommentService{
 
         return commentRepository.updateComment(commentId, updateCommentDTO, user);
     }
+
+    @Override
+    public Comment deleteComment(Integer commentId, User user) throws Exception {
+        Optional<Comment> commentOptional = commentRepository.findById(commentId);
+
+        if(commentOptional.isEmpty()){
+            throw new Exception("해당 댓글을 찾을 수 없습니다.");
+        }
+
+        Comment comment = commentOptional.get();
+
+        if(!comment.getUserId().equals(user.getId())){
+            throw new Exception("작성자만 삭제 할 수 있습니다.");
+        }
+
+        return commentRepository.deleteComment(commentId, user);
+    }
 }

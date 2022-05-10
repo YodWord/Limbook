@@ -74,6 +74,22 @@ public class CommentController {
     }
     
     //댓글삭제
-    
+    @DeleteMapping("/{commentId}")
+    public HashMap<String, Object> deleteComment (@PathVariable Integer commentId,
+                                                  @SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User user) throws Exception{
+
+        HashMap<String, Object> response = new HashMap<>();
+
+        if(user == null){
+            throw new Exception("로그인이 필요합니다.");
+        }
+
+        Comment deleteComment = commentService.deleteComment(commentId, user);
+
+        response.put("result", "성공");
+        response.put("comment", deleteComment);
+
+        return response;
+    }
     
 }

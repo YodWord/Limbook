@@ -65,6 +65,21 @@ public class CommentRepositoryImpl implements CommentRepository{
     }
 
     @Override
+    public Comment deleteComment(Integer commentId, User user) throws Exception {
+        Comment comment = findById(commentId).get();
+
+        String sql = "delete from board_comment where board_comment_number = ?";
+
+        try{
+            jdbcTemplate.update(sql, commentId);
+        }catch (Exception e){
+            throw new Exception("DB오류!");
+        }
+
+        return comment;
+    }
+
+    @Override
     public Optional<Comment> findById(Integer commentId) throws Exception {
         String sql = "select * from board_comment where board_comment_number = ?";
 

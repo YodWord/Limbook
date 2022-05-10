@@ -13,6 +13,8 @@ public interface CommentRepository {
 
     public Comment updateComment(Integer commentId, UpdateCommentDTO updateCommentDTO, User user) throws Exception;
 
+    public Comment deleteComment(Integer commentId, User user) throws Exception;
+
     public Optional<Comment> findById(Integer commentId) throws Exception;
 
 }
