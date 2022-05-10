@@ -23,7 +23,10 @@ public class UserController {
 
     private final UserService userService;
 
-    //회원가입
+    /**
+     *   회원가입
+     *
+     * */
     @PostMapping
     public HashMap<String, Object> signUp(@RequestBody @Validated UserSignUpDTO userSignUpDTO, BindingResult bindingResult)throws Exception{
 
@@ -55,9 +58,10 @@ public class UserController {
 
     //TODO: 아이디 중복체크 (필요할시)
 
-
-
-    //로그인
+    /**
+     *   로그인
+     *
+     * */
     @PostMapping("/login")
     public HashMap<String,Object> login(@RequestBody @Validated UserLoginDTO userLoginDTO, BindingResult bindingResult,
                                         HttpServletRequest request) throws Exception{
@@ -92,7 +96,10 @@ public class UserController {
         return response;
     }
 
-    //로그아웃
+    /**
+     *   로그아웃
+     *
+     * */
     @PostMapping("/logout")
     public HashMap<String, String> logout(HttpServletRequest request){
         HttpSession session = request.getSession(false);

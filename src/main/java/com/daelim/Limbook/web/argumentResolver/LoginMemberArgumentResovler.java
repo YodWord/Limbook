@@ -1,5 +1,6 @@
 package com.daelim.Limbook.web.argumentResolver;
 
+import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -23,7 +24,7 @@ public class LoginMemberArgumentResovler implements HandlerMethodArgumentResolve
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
 
         // sessionId는 문자열이므로 String 타입인지 확인
-        boolean hasStringType = String.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasStringType = User.class.isAssignableFrom(parameter.getParameterType());
 
         // 두 개 다 만족해야지 해당 ArgumentResolver가 지원하는 타입
         return hasLoginAnnotation && hasStringType;

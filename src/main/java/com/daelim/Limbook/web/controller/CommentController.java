@@ -3,10 +3,12 @@ package com.daelim.Limbook.web.controller;
 import com.daelim.Limbook.domain.Comment;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.SessionConst;
+import com.daelim.Limbook.web.argumentResolver.Login;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import com.daelim.Limbook.web.service.comments.CommentService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,10 +24,14 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    //댓글작성
+    /**
+     *   댓글 작성
+     *
+     * */
     @PostMapping
     public HashMap<String, Object> createComment (@RequestBody @Validated CreateCommentDTO createCommentDTO, BindingResult bindingResult,
-                                                  @SessionAttribute(value = SessionConst.LOGIN_USER, required = false) User user) throws Exception{
+                                                  @Login User user
+                                                  /*@SessionAttribute(value = SessionConst.LOGIN_USER, required = false) User user*/) throws Exception{
 
         HashMap<String, Object> response = new HashMap<>();
 
@@ -46,12 +52,16 @@ public class CommentController {
 
         return response;
     }
-    
-    //댓글수정
+
+    /**
+     *   댓글 수정
+     *
+     * */
     @PatchMapping("/{commentId}")
     public HashMap<String, Object> updateComment(@RequestBody @Validated UpdateCommentDTO updateCommentDTO,
                                                  @PathVariable Integer commentId, BindingResult bindingResult,
-                                                 @SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User user) throws Exception{
+                                                 @Login User user
+                                                 /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User user*/) throws Exception{
 
         HashMap<String, Object> response = new HashMap<>();
 
@@ -72,11 +82,15 @@ public class CommentController {
 
         return response;
     }
-    
-    //댓글삭제
+
+    /**
+     *   댓글 삭제
+     *
+     * */
     @DeleteMapping("/{commentId}")
     public HashMap<String, Object> deleteComment (@PathVariable Integer commentId,
-                                                  @SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User user) throws Exception{
+                                                  @Login User user
+                                                  /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User user*/) throws Exception{
 
         HashMap<String, Object> response = new HashMap<>();
 

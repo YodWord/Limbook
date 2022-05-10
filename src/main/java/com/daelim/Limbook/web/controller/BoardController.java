@@ -24,11 +24,14 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    /**
+    *   게시글 생성
+    *
+    * */
     @PostMapping
     public HashMap<String, Object> createBoard(@RequestBody @Validated CreateBoardDTO createBoardDTO, BindingResult bindingResult,
-                                               @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user
-                                               //TODO: @Login 안되는 이유 찾아보기
-                                               /*@Login User user*/
+                                               /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user*/
+                                               @Login User user
                                                ) throws Exception{
 
         HashMap <String, Object> response = new HashMap<>();
@@ -52,11 +55,15 @@ public class BoardController {
         return response;
     }
 
-    //수정
+    /**
+     *   게시글 수정
+     *
+     * */
     @PatchMapping("/{boardId}")
     public HashMap<String, Object> updateBoard(@RequestBody @Validated UpdateBoardDTO updateBoardDTO, BindingResult bindingResult,
                                                @PathVariable Integer boardId,
-                                               @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user) throws Exception{
+                                               /* @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user*/
+                                               @Login User user) throws Exception{
 
         HashMap <String, Object> response = new HashMap<>();
 
@@ -77,9 +84,14 @@ public class BoardController {
         return response;
     }
 
+    /**
+     *   게시글 삭제
+     *
+     * */
     @DeleteMapping("/{boardId}")
     public HashMap<String, Object> deleteBoard(@PathVariable Integer boardId,
-                                               @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user) throws Exception{
+                                               @Login User user
+                                               /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user*/) throws Exception{
 
         HashMap<String, Object> response = new HashMap<>();
 
