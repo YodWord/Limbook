@@ -11,9 +11,9 @@ import javax.validation.constraints.NotNull;
 public class CreateCommentDTO {
 
     @NotNull
-    private String comment;
+    private Integer boardId;
 
     @NotNull
-    private Integer boardId;
+    private String comment;
 
 }

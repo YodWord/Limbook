@@ -6,6 +6,6 @@ import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
 
 public interface CommentService {
 
-    public Comment createComment(CreateCommentDTO createCommentDTO, User user) throws Exception;
+    public Comment createComment(Comment comment, User user) throws Exception;
 
 }

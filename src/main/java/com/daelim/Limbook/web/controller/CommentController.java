@@ -1,8 +1,10 @@
 package com.daelim.Limbook.web.controller;
 
+import com.daelim.Limbook.domain.Comment;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
+import com.daelim.Limbook.web.service.comments.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -16,7 +18,9 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 @RestController
 public class CommentController {
-    
+
+    private final CommentService commentService;
+
     //댓글작성
     @PostMapping
     public HashMap<String, Object> createComment (@RequestBody @Validated CreateCommentDTO createCommentDTO, BindingResult bindingResult,
@@ -32,9 +36,14 @@ public class CommentController {
             return response;
         }
 
+        Comment comment = new Comment(createCommentDTO, user);
+        Comment saveComment = commentService.createComment(comment, user);
+
+        response.put("result","성공");
+        response.put("comment", saveComment);
 
 
-        return null;
+        return response;
     }
     
     //댓글수정
