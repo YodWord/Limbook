@@ -8,7 +8,6 @@ import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import com.daelim.Limbook.web.service.comments.CommentService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
