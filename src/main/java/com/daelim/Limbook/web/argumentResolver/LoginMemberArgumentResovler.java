@@ -18,12 +18,10 @@ public class LoginMemberArgumentResovler implements HandlerMethodArgumentResolve
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
 
-        log.info("supportsParameter 실행");// 캐시에 저장되어 supportsParameter는 한번만 실행
+        log.info("supportsParameter 실행");
 
         // @Login 커스텀 어노테이션 여부 확인
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-
-        // sessionId는 문자열이므로 String 타입인지 확인
         boolean hasStringType = User.class.isAssignableFrom(parameter.getParameterType());
 
         // 두 개 다 만족해야지 해당 ArgumentResolver가 지원하는 타입
@@ -36,7 +34,6 @@ public class LoginMemberArgumentResovler implements HandlerMethodArgumentResolve
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
 
-        log.info("resolveArgument 실행");
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         HttpSession session = request.getSession(false);
 

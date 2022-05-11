@@ -1,11 +1,13 @@
 package com.daelim.Limbook.web.controller;
 
 import com.daelim.Limbook.web.SessionConst;
+import com.daelim.Limbook.web.argumentResolver.Login;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
 import com.daelim.Limbook.web.service.users.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +24,8 @@ import java.util.HashMap;
 public class UserController {
 
     private final UserService userService;
+
+    //TODO: 유저 조회
 
     /**
      *   회원가입
@@ -115,7 +119,7 @@ public class UserController {
 
     }
 
-    //TODO: 유저 조회
+
 
 
 }
