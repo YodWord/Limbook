@@ -6,8 +6,6 @@ import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.BoardDTO.CreateBoardDTO;
 import com.daelim.Limbook.web.controller.dto.BoardDTO.UpdateBoardDTO;
 
-import java.util.Optional;
-
 public interface BoardService {
 
     public Board createBoard(CreateBoardDTO createBoardDTO, User user) throws Exception;

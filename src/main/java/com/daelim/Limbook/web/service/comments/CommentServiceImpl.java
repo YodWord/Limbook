@@ -2,7 +2,6 @@ package com.daelim.Limbook.web.service.comments;
 
 import com.daelim.Limbook.domain.Comment;
 import com.daelim.Limbook.domain.User;
-import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import com.daelim.Limbook.web.repository.Comments.CommentRepository;
 import lombok.RequiredArgsConstructor;

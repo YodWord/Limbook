@@ -2,7 +2,6 @@ package com.daelim.Limbook.web.repository.Comments;
 
 import com.daelim.Limbook.domain.Comment;
 import com.daelim.Limbook.domain.User;
-import com.daelim.Limbook.web.controller.dto.CommentDTO.CreateCommentDTO;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,8 +10,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
