@@ -99,6 +99,13 @@ public class BoardRepositoryImpl implements BoardRepository{
         return result.stream().findAny();
     }
 
+    @Override
+    public List<Board> findAll() throws Exception {
+        String sql = "select * from board";
+
+        return jdbcTemplate.query(sql, boardRowMapper());
+    }
+
     private RowMapper<Board> boardRowMapper()  {
         return (rs, rowNum)  -> {
             Board board = new Board();

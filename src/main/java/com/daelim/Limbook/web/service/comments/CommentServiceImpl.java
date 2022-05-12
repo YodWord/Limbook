@@ -6,6 +6,7 @@ import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import com.daelim.Limbook.web.repository.Comments.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
 
@@ -53,4 +54,6 @@ public class CommentServiceImpl implements CommentService{
 
         return commentRepository.deleteComment(commentId, user);
     }
+
+
 }

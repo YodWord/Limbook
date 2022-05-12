@@ -8,6 +8,7 @@ import com.daelim.Limbook.web.repository.boards.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -51,5 +52,27 @@ public class BoardServiceImpl implements BoardService{
         }
 
         return boardRepository.deleteBoard(boardId, user);
+    }
+
+    @Override
+    public Board findById(Integer boardId) throws Exception {
+
+        Optional<Board> boardOptional = boardRepository.findById(boardId);
+
+        if(boardOptional.isEmpty()){
+            throw new Exception("board id에 해당하는 글을 찾을 수 없습니다.");
+        }
+
+        Board board = boardOptional.get();
+
+        return board;
+    }
+
+    @Override
+    public List<Board> findAll() throws Exception {
+
+        //List<Board> boardList = boardRepository.findAll();
+
+        return boardRepository.findAll();
     }
 }

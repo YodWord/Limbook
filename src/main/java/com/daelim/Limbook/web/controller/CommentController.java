@@ -104,5 +104,10 @@ public class CommentController {
 
         return response;
     }
-    
+
+    //TODO: boardId 로 댓글 List 뿌려주기
+/*    @GetMapping("{/commentId}")
+    public HashMap <String, Object> findCommentByBoardId(@PathVariable In)*/
+
+
 }

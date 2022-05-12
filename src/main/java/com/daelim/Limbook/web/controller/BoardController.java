@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/boards")
@@ -102,6 +103,41 @@ public class BoardController {
 
         response.put("result", "성공");
         response.put("board", board);
+
+        return response;
+    }
+
+    /**
+     *   게시글 하나 조회
+     *
+     * */
+    @GetMapping("/{boardId}")
+    public HashMap<String, Object> findBoardById(@PathVariable Integer boardId) throws Exception {
+
+        Board board = boardService.findById(boardId);
+
+        HashMap<String, Object> response = new HashMap<>();
+
+        response.put("result", "성공");
+        response.put("board",board);
+
+        return response;
+    }
+
+    /**
+     *   게시글 전체 조회
+     *
+     * */
+    //Service 에서 Optional 안써도 될까...
+    @GetMapping
+    public HashMap<String, Object> findAllBoard() throws Exception{
+
+        List<Board> boardList = boardService.findAll();
+
+        HashMap<String, Object> response = new HashMap<>();
+
+        response.put("result", "성공");
+        response.put("board",boardList);
 
         return response;
     }
