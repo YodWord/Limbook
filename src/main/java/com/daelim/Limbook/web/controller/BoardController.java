@@ -1,6 +1,5 @@
 package com.daelim.Limbook.web.controller;
 
-import com.daelim.Limbook.web.SessionConst;
 import com.daelim.Limbook.web.argumentResolver.Login;
 import com.daelim.Limbook.domain.Board;
 import com.daelim.Limbook.domain.User;

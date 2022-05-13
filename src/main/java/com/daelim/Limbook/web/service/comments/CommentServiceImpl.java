@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -55,5 +56,8 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.deleteComment(commentId, user);
     }
 
-
+    @Override
+    public List<Comment> findByBoardId(Integer boardId) throws Exception {
+        return commentRepository.findByBoardId(boardId);
+    }
 }

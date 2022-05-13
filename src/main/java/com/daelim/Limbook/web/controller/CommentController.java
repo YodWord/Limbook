@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/comments")
@@ -105,9 +106,17 @@ public class CommentController {
         return response;
     }
 
-    //TODO: boardId 로 댓글 List 뿌려주기
-/*    @GetMapping("{/commentId}")
-    public HashMap <String, Object> findCommentByBoardId(@PathVariable In)*/
+    @GetMapping("/{boardId}")
+    public HashMap <String, Object> findCommentByBoardId(@PathVariable Integer boardId) throws Exception {
+        HashMap<String, Object> response = new HashMap<>();
+
+        List<Comment> commentList = commentService.findByBoardId(boardId);
+
+        response.put("result","성공");
+        response.put("commentList", commentList);
+
+        return response;
+   }
 
 
 }

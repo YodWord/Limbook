@@ -23,8 +23,6 @@ public class UserController {
 
     private final UserService userService;
 
-    //TODO: 유저 조회
-
     /**
      *   회원가입
      *
@@ -117,7 +115,14 @@ public class UserController {
 
     }
 
+    @GetMapping("/{boardId}")
+    public HashMap<String, Object> findByBoardId(@PathVariable Integer boardId){
+        HashMap<String, Object> response = new HashMap<>();
 
+
+
+        return null;
+    }
 
 
 }

@@ -77,6 +77,15 @@ public class CommentRepositoryImpl implements CommentRepository{
     }
 
     @Override
+    public List<Comment> findByBoardId(Integer boardId) throws Exception {
+        String sql = "select * from board_comment where board_number = ?";
+
+        List<Comment> result = jdbcTemplate.query(sql, commentRowMapper(), boardId);
+
+        return result;
+    }
+
+    @Override
     public Optional<Comment> findById(Integer commentId) throws Exception {
         String sql = "select * from board_comment where board_comment_number = ?";
 

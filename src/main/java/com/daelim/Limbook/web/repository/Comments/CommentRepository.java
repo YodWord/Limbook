@@ -4,6 +4,7 @@ import com.daelim.Limbook.domain.Comment;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CommentRepository {
@@ -15,5 +16,7 @@ public interface CommentRepository {
     public Comment deleteComment(Integer commentId, User user) throws Exception;
 
     public Optional<Comment> findById(Integer commentId) throws Exception;
+
+    public List<Comment> findByBoardId(Integer boardId) throws Exception;
 
 }
