@@ -35,7 +35,7 @@ public class UserController {
 
 
         if(bindingResult.hasErrors()){
-            response.put("result","오류");
+            response.put("result","입력값 확인 필요.");
             return response;
         }
 
@@ -70,14 +70,14 @@ public class UserController {
         HashMap<String,Object> response = new HashMap<>();
 
         if(bindingResult.hasErrors()){
-            response.put("result","오류");
+            response.put("result","입력값 확인 필요");
             return response;
         }
 
         User user = userService.login(userLoginDTO);
 
         if(user == null || !(user.getId().equals(userLoginDTO.getUser_id()) && user.getPw().equals(userLoginDTO.getUser_pw()))){
-            response.put("result","입력값을 확인하세요");
+            response.put("result","아이디와 비밀번호를 확인해 주세요.");
             return response;
         }
 
