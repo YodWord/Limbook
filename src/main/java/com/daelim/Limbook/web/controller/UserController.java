@@ -121,7 +121,9 @@ public class UserController {
         HashMap<String, Object> response = new HashMap<>();
 
         if(user == null){
-            throw new Exception("로그인이 필요합니다.");
+            response.put("result", "로그인이 필요합니다.");
+            return response;
+            //throw new Exception("로그인이 필요합니다.");
         }
 
         return null;

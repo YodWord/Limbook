@@ -36,10 +36,12 @@ public class CommentController {
         HashMap<String, Object> response = new HashMap<>();
 
         if(user == null){
-            throw new Exception("로그인이 필요합니다.");
+            response.put("result", "로그인이 필요합니다.");
+            return response;
+            //throw new Exception("로그인이 필요합니다.");
         }
         if(bindingResult.hasErrors()){
-            response.put("result", "실패");
+            response.put("result", "입력값 확인 필요");
             return response;
         }
 
@@ -66,11 +68,13 @@ public class CommentController {
         HashMap<String, Object> response = new HashMap<>();
 
         if(user == null){
-            throw new Exception("로그인이 필요합니다.");
+            response.put("result", "로그인이 필요합니다.");
+            return response;
+            //throw new Exception("로그인이 필요합니다.");
         }
 
         if(bindingResult.hasErrors()){
-            response.put("result", "실패");
+            response.put("result", "입력값 확인 필요");
             return response;
         }
 
@@ -95,7 +99,9 @@ public class CommentController {
         HashMap<String, Object> response = new HashMap<>();
 
         if(user == null){
-            throw new Exception("로그인이 필요합니다.");
+            response.put("result", "로그인이 필요합니다.");
+            return response;
+            //throw new Exception("로그인이 필요합니다.");
         }
 
         Comment deleteComment = commentService.deleteComment(commentId, user);
