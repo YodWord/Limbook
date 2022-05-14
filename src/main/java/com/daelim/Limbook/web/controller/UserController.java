@@ -1,6 +1,7 @@
 package com.daelim.Limbook.web.controller;
 
 import com.daelim.Limbook.web.SessionConst;
+import com.daelim.Limbook.web.argumentResolver.Login;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserLoginDTO;
 import com.daelim.Limbook.domain.User;
 import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
@@ -41,7 +42,7 @@ public class UserController {
 
         User user = User.createUserByDTO(userSignUpDTO);
 
-         userService.signUp(user);
+        userService.signUp(user);
 
         HashMap<String, Object> userResponse = new HashMap<>();
         userResponse.put("user_id", user.getId());
@@ -115,11 +116,13 @@ public class UserController {
 
     }
 
-    @GetMapping("/{boardId}")
-    public HashMap<String, Object> findByBoardId(@PathVariable Integer boardId){
+    @GetMapping
+    public HashMap<String, Object> findByUserId(@Login User user) throws Exception{
         HashMap<String, Object> response = new HashMap<>();
 
-
+        if(user == null){
+            throw new Exception("로그인이 필요합니다.");
+        }
 
         return null;
     }
