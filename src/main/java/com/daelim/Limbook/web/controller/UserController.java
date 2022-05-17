@@ -8,6 +8,7 @@ import com.daelim.Limbook.web.controller.dto.UserDTO.UserSignUpDTO;
 import com.daelim.Limbook.web.service.users.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,14 +30,15 @@ public class UserController {
      *
      * */
     @PostMapping
-    public HashMap<String, Object> signUp(@RequestBody @Validated UserSignUpDTO userSignUpDTO, BindingResult bindingResult)throws Exception{
+    public ResponseEntity<Object> signUp(@RequestBody @Validated UserSignUpDTO userSignUpDTO, BindingResult bindingResult)throws Exception{
 
         HashMap<String, Object> response = new HashMap<>();
 
 
         if(bindingResult.hasErrors()){
             response.put("result","입력값 확인 필요.");
-            return response;
+
+            return ResponseEntity.badRequest().body(response);
         }
 
 
@@ -54,7 +56,7 @@ public class UserController {
         response.put("result","성공");
         response.put("user", userResponse);
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     //TODO: 아이디 중복체크 (필요할시)
@@ -64,21 +66,21 @@ public class UserController {
      *
      * */
     @PostMapping("/login")
-    public HashMap<String,Object> login(@RequestBody @Validated UserLoginDTO userLoginDTO, BindingResult bindingResult,
+    public ResponseEntity<Object> login(@RequestBody @Validated UserLoginDTO userLoginDTO, BindingResult bindingResult,
                                         HttpServletRequest request) throws Exception{
 
         HashMap<String,Object> response = new HashMap<>();
 
         if(bindingResult.hasErrors()){
             response.put("result","입력값 확인 필요");
-            return response;
+            return ResponseEntity.badRequest().body(response);
         }
 
         User user = userService.login(userLoginDTO);
 
         if(user == null || !(user.getId().equals(userLoginDTO.getUser_id()) && user.getPw().equals(userLoginDTO.getUser_pw()))){
             response.put("result","아이디와 비밀번호를 확인해 주세요.");
-            return response;
+            return ResponseEntity.badRequest().body(response);
         }
 
         HashMap<String, String> userResponse = new HashMap<>();
@@ -94,7 +96,7 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_USER, user);
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     /**
@@ -102,27 +104,28 @@ public class UserController {
      *
      * */
     @PostMapping("/logout")
-    public HashMap<String, String> logout(HttpServletRequest request){
+    public ResponseEntity<Object> logout(HttpServletRequest request){
         HttpSession session = request.getSession(false);
 
         if (session != null) {
             session.invalidate();
         }
 
-        HashMap<String, String> resultMap = new HashMap<>();
-        resultMap.put("result", "성공");
+        HashMap<String, String> result = new HashMap<>();
+        result.put("result", "성공");
 
-        return resultMap;
+        return ResponseEntity.ok().body(result);
 
     }
+    //TODO: 회원 수정? 삭제? 조회?
 
     @GetMapping
-    public HashMap<String, Object> findByUserId(@Login User user) throws Exception{
+    public ResponseEntity<Object> findByUserId(@Login User user) throws Exception{
         HashMap<String, Object> response = new HashMap<>();
 
         if(user == null){
             response.put("result", "로그인이 필요합니다.");
-            return response;
+            return ResponseEntity.badRequest().body(response);
             //throw new Exception("로그인이 필요합니다.");
         }
 

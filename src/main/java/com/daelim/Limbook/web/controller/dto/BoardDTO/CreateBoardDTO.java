@@ -1,10 +1,13 @@
 package com.daelim.Limbook.web.controller.dto.BoardDTO;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter @Setter
+@RequiredArgsConstructor
 public class CreateBoardDTO {
 
     @NotNull

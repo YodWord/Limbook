@@ -8,6 +8,7 @@ import com.daelim.Limbook.web.controller.dto.BoardDTO.UpdateBoardDTO;
 import com.daelim.Limbook.web.service.boards.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class BoardController {
     *
     * */
     @PostMapping
-    public HashMap<String, Object> createBoard(@RequestBody @Validated CreateBoardDTO createBoardDTO, BindingResult bindingResult,
+    public ResponseEntity<Object> createBoard(@RequestBody @Validated CreateBoardDTO createBoardDTO, BindingResult bindingResult,
                                                /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user*/
                                                @Login User user
                                                ) throws Exception{
@@ -36,12 +37,19 @@ public class BoardController {
         HashMap <String, Object> response = new HashMap<>();
 
         if(user == null){
-            throw new Exception("로그인이 필요합니다.");
+            response.put("result", "로그인이 필요합니다.");
+            return ResponseEntity.badRequest().body(response);
         }
 
         if(bindingResult.hasErrors()){
-            response.put("result", "실패");
-            return response;
+            response.put("result", "입력값을 확인 해주세요");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        //???? bindingresult 왜 작동 안함?
+        if(createBoardDTO.getBoard_title().trim().equals("") || createBoardDTO.getBoard_contents().trim().equals("") ){
+            response.put("result", "입력값을 확인 해주세요");
+            return ResponseEntity.badRequest().body(response);
         }
 
         log.info("board controller 실행" + user);
@@ -51,7 +59,7 @@ public class BoardController {
         response.put("board",board);
 
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     /**
@@ -59,7 +67,7 @@ public class BoardController {
      *
      * */
     @PatchMapping("/{boardId}")
-    public HashMap<String, Object> updateBoard(@RequestBody @Validated UpdateBoardDTO updateBoardDTO, BindingResult bindingResult,
+    public ResponseEntity<Object> updateBoard(@RequestBody @Validated UpdateBoardDTO updateBoardDTO, BindingResult bindingResult,
                                                @PathVariable Integer boardId,
                                                /* @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user*/
                                                @Login User user) throws Exception{
@@ -68,21 +76,25 @@ public class BoardController {
 
         if(user == null){
             response.put("result", "로그인이 필요합니다.");
-            return response;
-            //throw new Exception("로그인이 필요합니다.");
+            return ResponseEntity.badRequest().body(response);
         }
 
         if(bindingResult.hasErrors()){
             response.put("result", "입력값 확인 필요.");
-            return response;
+            return ResponseEntity.badRequest().body(response);
         }
+        if(updateBoardDTO.getBoard_title().trim().equals("") || updateBoardDTO.getBoard_contents().trim().equals("") ){
+            response.put("result", "입력값을 확인 해주세요");
+            return ResponseEntity.badRequest().body(response);
+        }
+
 
         Board board = boardService.updateBoard(updateBoardDTO, boardId,user);
 
         response.put("result","성공");
         response.put("board",board);
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     /**
@@ -90,7 +102,7 @@ public class BoardController {
      *
      * */
     @DeleteMapping("/{boardId}")
-    public HashMap<String, Object> deleteBoard(@PathVariable Integer boardId,
+    public ResponseEntity<Object> deleteBoard(@PathVariable Integer boardId,
                                                @Login User user
                                                /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user*/) throws Exception{
 
@@ -98,7 +110,7 @@ public class BoardController {
 
         if(user == null){
             response.put("result", "로그인이 필요합니다.");
-            return response;
+            return ResponseEntity.badRequest().body(response);
             //throw new Exception("로그인이 필요합니다");
         }
 
@@ -107,7 +119,7 @@ public class BoardController {
         response.put("result", "성공");
         response.put("board", board);
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     /**
@@ -115,7 +127,7 @@ public class BoardController {
      *
      * */
     @GetMapping("/{boardId}")
-    public HashMap<String, Object> findBoardById(@PathVariable Integer boardId) throws Exception {
+    public ResponseEntity<Object> findBoardById(@PathVariable Integer boardId) throws Exception {
 
         Board board = boardService.findById(boardId);
 
@@ -124,7 +136,7 @@ public class BoardController {
         response.put("result", "성공");
         response.put("board",board);
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     /**
@@ -133,7 +145,7 @@ public class BoardController {
      * */
     //Service 에서 Optional 안써도 될까...
     @GetMapping
-    public HashMap<String, Object> findAllBoard() throws Exception{
+    public ResponseEntity<Object> findAllBoard() throws Exception{
 
         List<Board> boardList = boardService.findAll();
 
@@ -142,7 +154,7 @@ public class BoardController {
         response.put("result", "성공");
         response.put("board",boardList);
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
 }

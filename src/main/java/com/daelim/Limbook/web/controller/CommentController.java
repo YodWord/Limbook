@@ -9,6 +9,7 @@ import com.daelim.Limbook.web.controller.dto.CommentDTO.UpdateCommentDTO;
 import com.daelim.Limbook.web.service.comments.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,20 +30,20 @@ public class CommentController {
      *
      * */
     @PostMapping
-    public HashMap<String, Object> createComment (@RequestBody @Validated CreateCommentDTO createCommentDTO, BindingResult bindingResult,
-                                                  @Login User user
+    public ResponseEntity<Object> createComment (@RequestBody @Validated CreateCommentDTO createCommentDTO, BindingResult bindingResult,
+                                                @Login User user
                                                   /*@SessionAttribute(value = SessionConst.LOGIN_USER, required = false) User user*/) throws Exception{
 
         HashMap<String, Object> response = new HashMap<>();
 
         if(user == null){
             response.put("result", "로그인이 필요합니다.");
-            return response;
+            return ResponseEntity.badRequest().body(response);
             //throw new Exception("로그인이 필요합니다.");
         }
         if(bindingResult.hasErrors()){
             response.put("result", "입력값 확인 필요");
-            return response;
+            return ResponseEntity.badRequest().body(response);
         }
 
         Comment comment = new Comment(createCommentDTO, user);
@@ -52,7 +53,7 @@ public class CommentController {
         response.put("comment", saveComment);
 
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     /**
@@ -60,7 +61,7 @@ public class CommentController {
      *
      * */
     @PatchMapping("/{commentId}")
-    public HashMap<String, Object> updateComment(@RequestBody @Validated UpdateCommentDTO updateCommentDTO,
+    public ResponseEntity<Object> updateComment(@RequestBody @Validated UpdateCommentDTO updateCommentDTO,
                                                  @PathVariable Integer commentId, BindingResult bindingResult,
                                                  @Login User user
                                                  /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User user*/) throws Exception{
@@ -69,13 +70,13 @@ public class CommentController {
 
         if(user == null){
             response.put("result", "로그인이 필요합니다.");
-            return response;
+            return ResponseEntity.badRequest().body(response);
             //throw new Exception("로그인이 필요합니다.");
         }
 
         if(bindingResult.hasErrors()){
             response.put("result", "입력값 확인 필요");
-            return response;
+            return ResponseEntity.badRequest().body(response);
         }
 
 
@@ -84,7 +85,7 @@ public class CommentController {
         response.put("result", "성공");
         response.put("comment", updateComment);
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     /**
@@ -92,7 +93,7 @@ public class CommentController {
      *
      * */
     @DeleteMapping("/{commentId}")
-    public HashMap<String, Object> deleteComment (@PathVariable Integer commentId,
+    public ResponseEntity<Object> deleteComment (@PathVariable Integer commentId,
                                                   @Login User user
                                                   /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false)User user*/) throws Exception{
 
@@ -100,7 +101,7 @@ public class CommentController {
 
         if(user == null){
             response.put("result", "로그인이 필요합니다.");
-            return response;
+            return ResponseEntity.badRequest().body(response);
             //throw new Exception("로그인이 필요합니다.");
         }
 
@@ -109,11 +110,11 @@ public class CommentController {
         response.put("result", "성공");
         response.put("comment", deleteComment);
 
-        return response;
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{boardId}")
-    public HashMap <String, Object> findCommentByBoardId(@PathVariable Integer boardId) throws Exception {
+    public ResponseEntity<Object> findCommentByBoardId(@PathVariable Integer boardId) throws Exception {
         HashMap<String, Object> response = new HashMap<>();
 
         List<Comment> commentList = commentService.findByBoardId(boardId);
@@ -121,7 +122,7 @@ public class CommentController {
         response.put("result","성공");
         response.put("commentList", commentList);
 
-        return response;
+        return ResponseEntity.ok().body(response);
    }
 
 
