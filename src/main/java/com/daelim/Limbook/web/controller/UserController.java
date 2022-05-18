@@ -94,6 +94,7 @@ public class UserController {
         response.put("user",userResponse);
 
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(1800);
         session.setAttribute(SessionConst.LOGIN_USER, user);
 
         return ResponseEntity.ok().body(response);

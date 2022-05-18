@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @RequiredArgsConstructor
 @Getter @Setter
 public class UpdateCommentDTO {
 
-    @NotNull
+    @NotBlank
     private String comment;
 
 }

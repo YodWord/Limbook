@@ -30,7 +30,6 @@ public class BoardController {
     * */
     @PostMapping
     public ResponseEntity<Object> createBoard(@RequestBody @Validated CreateBoardDTO createBoardDTO, BindingResult bindingResult,
-                                               /*@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User user*/
                                                @Login User user
                                                ) throws Exception{
 
@@ -46,11 +45,6 @@ public class BoardController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        //???? bindingresult 왜 작동 안함?
-        if(createBoardDTO.getBoard_title().trim().equals("") || createBoardDTO.getBoard_contents().trim().equals("") ){
-            response.put("result", "입력값을 확인 해주세요");
-            return ResponseEntity.badRequest().body(response);
-        }
 
         log.info("board controller 실행" + user);
         Board board = boardService.createBoard(createBoardDTO, user);
@@ -81,10 +75,6 @@ public class BoardController {
 
         if(bindingResult.hasErrors()){
             response.put("result", "입력값 확인 필요.");
-            return ResponseEntity.badRequest().body(response);
-        }
-        if(updateBoardDTO.getBoard_title().trim().equals("") || updateBoardDTO.getBoard_contents().trim().equals("") ){
-            response.put("result", "입력값을 확인 해주세요");
             return ResponseEntity.badRequest().body(response);
         }
 
