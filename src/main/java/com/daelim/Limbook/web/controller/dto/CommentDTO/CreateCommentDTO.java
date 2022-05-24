@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter
 public class CreateCommentDTO {
 
-    @NotBlank
+    @NotNull
     private Integer boardId;
 
     @NotBlank
