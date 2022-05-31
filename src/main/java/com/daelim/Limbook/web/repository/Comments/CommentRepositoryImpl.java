@@ -35,7 +35,7 @@ public class CommentRepositoryImpl implements CommentRepository{
 
         Map<String, Object> params = new HashMap<>();
         params.put("board_number", comment.getBoardNumber());
-        params.put("user_id", user.getId());
+        params.put("user_id", user.getUser_id());
         params.put("board_comment_contents", comment.getBoardCommentContents());
         params.put("board_comment_create_date", comment.getBoardCreatedAt());
 

@@ -22,7 +22,7 @@ public class Comment {
     public Comment(CreateCommentDTO createCommentDTO, User user) {
         this.boardNumber = createCommentDTO.getBoardId();
         this.boardCommentContents = createCommentDTO.getComment();
-        this.userId = user.getId();
+        this.userId = user.getUser_id();
         this.boardCreatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
 

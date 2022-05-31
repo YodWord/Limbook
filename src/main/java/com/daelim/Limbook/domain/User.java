@@ -7,27 +7,21 @@ import lombok.*;
 @Getter @Setter @ToString
 public class User {
 
-    private String id;
-    private String pw;
-    private String name;
-    private String phone;
-    private String department;
+    private String user_id;
+    private String user_pw;
+    private String user_email;
 
     public User(UserSignUpDTO userSignUpDTO) {
-        this.id = userSignUpDTO.getUser_id();
-        this.pw = userSignUpDTO.getUser_pw();
-        this.name = userSignUpDTO.getUser_name();
-        this.phone = userSignUpDTO.getUser_phone();
-        this.department = userSignUpDTO.getUser_department();
+        this.user_id = userSignUpDTO.getUser_id();
+        this.user_pw = userSignUpDTO.getUser_pw();
+        this.user_email = userSignUpDTO.getUser_email();
     }
 
     public static User createUserByDTO(UserSignUpDTO userSignUpDTO) {
         User user = new User();
-        user.id = userSignUpDTO.getUser_id();
-        user.pw = userSignUpDTO.getUser_pw();
-        user.name = userSignUpDTO.getUser_name();
-        user.phone = userSignUpDTO.getUser_phone();
-        user.department = userSignUpDTO.getUser_department();
+        user.user_id = userSignUpDTO.getUser_id();
+        user.user_pw = userSignUpDTO.getUser_pw();
+        user.user_email = userSignUpDTO.getUser_email();
         return user;
     }
 }

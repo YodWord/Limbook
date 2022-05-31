@@ -35,7 +35,7 @@ public class BoardRepositoryImpl implements BoardRepository{
 
         Board board = new Board();
 
-        board.setUser_id(user.getId());
+        board.setUser_id(user.getUser_id());
         board.setBoard_title(createBoardDTO.getBoard_title());
         board.setBoard_contents(createBoardDTO.getBoard_contents());
         board.setBoard_create_date(Timestamp.valueOf(LocalDateTime.now()));

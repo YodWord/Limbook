@@ -31,11 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
 
         Map<String, Object> params = new HashMap<>();
 
-        params.put("user_id", user.getId());
-        params.put("user_pw", user.getPw());
-        params.put("user_name", user.getName());
-        params.put("user_phone", user.getPhone());
-        params.put("user_department", user.getDepartment());
+        params.put("user_id", user.getUser_id());
+        params.put("user_pw", user.getUser_pw());
+        params.put("user_email", user.getUser_email());
 
         jdbcInsert.execute(params);
 
@@ -54,11 +52,10 @@ public class UserRepositoryImpl implements UserRepository {
     private RowMapper<User> userRowMapper() {
         return (rs, rowNum) -> {
             User user = new User();
-            user.setId(rs.getString("user_id"));
-            user.setPw(rs.getString("user_pw"));
-            user.setName(rs.getString("user_name"));
-            user.setPhone(rs.getString("user_phone"));
-            user.setDepartment(rs.getString("user_department"));
+            user.setUser_id(rs.getString("user_id"));
+            user.setUser_pw(rs.getString("user_pw"));
+            user.setUser_email(rs.getString("user_email"));
+
             return user;
         };
     }

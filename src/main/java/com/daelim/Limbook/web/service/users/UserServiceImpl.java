@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     //로그인
     public User login(UserLoginDTO userLoginDTO){
         return userRepository.findbyId(userLoginDTO.getUser_id())
-                .filter(user -> user.getPw().equals(userLoginDTO.getUser_pw()))
+                .filter(user -> user.getUser_pw().equals(userLoginDTO.getUser_pw()))
                 .orElse(null);
     }
 

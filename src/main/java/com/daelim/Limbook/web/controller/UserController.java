@@ -47,11 +47,9 @@ public class UserController {
         userService.signUp(user);
 
         HashMap<String, Object> userResponse = new HashMap<>();
-        userResponse.put("user_id", user.getId());
-        userResponse.put("user_pw", user.getPw());
-        userResponse.put("user_name", user.getName());
-        userResponse.put("user_phone", user.getPhone());
-        userResponse.put("user_department", user.getDepartment());
+        userResponse.put("user_id", user.getUser_id());
+        userResponse.put("user_pw", user.getUser_pw());
+        userResponse.put("user_name", user.getUser_email());
 
         response.put("result","성공");
         response.put("user", userResponse);
@@ -78,17 +76,15 @@ public class UserController {
 
         User user = userService.login(userLoginDTO);
 
-        if(user == null || !(user.getId().equals(userLoginDTO.getUser_id()) && user.getPw().equals(userLoginDTO.getUser_pw()))){
+        if(user == null || !(user.getUser_id().equals(userLoginDTO.getUser_id()) && user.getUser_pw().equals(userLoginDTO.getUser_pw()))){
             response.put("result","아이디와 비밀번호를 확인해 주세요.");
             return ResponseEntity.badRequest().body(response);
         }
 
         HashMap<String, String> userResponse = new HashMap<>();
 
-        userResponse.put("user_id", user.getId());
-        userResponse.put("user_name", user.getName());
-        userResponse.put("user_phone", user.getPhone());
-        userResponse.put("user_department", user.getDepartment());
+        userResponse.put("user_id", user. getUser_id());
+        userResponse.put("user_name", user.getUser_email());
 
         response.put("result","성공");
         response.put("user",userResponse);

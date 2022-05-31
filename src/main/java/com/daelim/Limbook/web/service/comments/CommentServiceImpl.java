@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = commentOptional.get();
 
-        if(!comment.getUserId().equals(user.getId())){
+        if(!comment.getUserId().equals(user.getUser_id())){
             throw new Exception("작성자만 수정 할 수 있습니다.");
         }
 
@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = commentOptional.get();
 
-        if(!comment.getUserId().equals(user.getId())){
+        if(!comment.getUserId().equals(user.getUser_id())){
             throw new Exception("작성자만 삭제 할 수 있습니다.");
         }
 
