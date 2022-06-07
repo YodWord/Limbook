@@ -17,4 +17,10 @@ public class UpdateBoardDTO {
     @NotBlank
     private String board_contents;
 
+    @NotNull
+    private Integer board_price;
+
+
+
+
 }

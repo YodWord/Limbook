@@ -46,7 +46,6 @@ public class BoardController {
         }
 
 
-        log.info("board controller 실행" + user);
         Board board = boardService.createBoard(createBoardDTO, user);
 
         response.put("result", "성공");

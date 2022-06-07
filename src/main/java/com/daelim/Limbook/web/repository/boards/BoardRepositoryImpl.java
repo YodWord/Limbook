@@ -34,20 +34,23 @@ public class BoardRepositoryImpl implements BoardRepository{
         Number key = null;
 
         Board board = new Board();
-
+        log.info(createBoardDTO.getBoard_title());
         board.setUser_id(user.getUser_id());
         board.setBoard_title(createBoardDTO.getBoard_title());
         board.setBoard_contents(createBoardDTO.getBoard_contents());
+        board.setBoard_price(createBoardDTO.getBoard_price());
         board.setBoard_create_date(Timestamp.valueOf(LocalDateTime.now()));
 
+
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        jdbcInsert.withTableName("board").usingGeneratedKeyColumns("board_number");
+        jdbcInsert.withTableName("board").usingGeneratedKeyColumns("board_id");
 
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", board.getUser_id());
         params.put("board_title", board.getBoard_title());
         params.put("board_contents", board.getBoard_contents());
-        params.put("board_create_date", board.getBoard_create_date());
+        params.put("board_price", board.getBoard_price());
+        params.put("board_created_date", board.getBoard_create_date());
 
         log.info("board repository 실행" + params);
 
@@ -63,10 +66,10 @@ public class BoardRepositoryImpl implements BoardRepository{
 
     @Override
     public Board updateBoard(UpdateBoardDTO updateBoardDTO, Integer boardId, User user) throws Exception {
-        String sql = "update board set board_title = ?, board_contents = ? where board_number = ?";
+        String sql = "update board set board_title = ?, board_contents = ?, board_price= ? where board_id = ?";
 
         try {
-            jdbcTemplate.update(sql, updateBoardDTO.getBoard_title() ,updateBoardDTO.getBoard_contents(), boardId);
+            jdbcTemplate.update(sql, updateBoardDTO.getBoard_title() ,updateBoardDTO.getBoard_contents(), updateBoardDTO.getBoard_price(), boardId);
         }catch (Exception e) {
             throw new Exception("DB 에러!");
         }
@@ -78,7 +81,7 @@ public class BoardRepositoryImpl implements BoardRepository{
     public Board deleteBoard(Integer boardId, User user) throws Exception {
         Board board = findById(boardId).get();
 
-        String sql = "delete from board where board_number = ?";
+        String sql = "delete from board where board_id = ?";
 
         try{
             jdbcTemplate.update(sql, boardId);
@@ -92,7 +95,7 @@ public class BoardRepositoryImpl implements BoardRepository{
     @Override
     public Optional<Board> findById(Integer id) throws Exception {
 
-        String sql = "select * from board where board_number = ?";
+        String sql = "select * from board where board_id = ?";
 
         List<Board> result = jdbcTemplate.query(sql, boardRowMapper(), id);
 
@@ -109,11 +112,12 @@ public class BoardRepositoryImpl implements BoardRepository{
     private RowMapper<Board> boardRowMapper()  {
         return (rs, rowNum)  -> {
             Board board = new Board();
-            board.setBoard_number(rs.getInt("board_number"));
+            board.setBoard_number(rs.getInt("board_id"));
             board.setUser_id(rs.getString("user_id"));
             board.setBoard_title(rs.getString("board_title"));
             board.setBoard_contents(rs.getString("board_contents"));
-            board.setBoard_create_date(rs.getTimestamp("board_create_date"));
+            board.setBoard_price(rs.getInt("board_price"));
+            board.setBoard_create_date(rs.getTimestamp("board_created_date"));
             return board;
         };
     }

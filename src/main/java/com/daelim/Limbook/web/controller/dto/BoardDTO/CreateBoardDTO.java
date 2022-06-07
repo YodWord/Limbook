@@ -17,4 +17,10 @@ public class CreateBoardDTO {
     @NotBlank
     private String board_contents;
 
+    @NotNull
+    private Integer board_price;
+
+
+    private String board_tag;
+
 }

@@ -14,6 +14,7 @@ public class Board {
     private String user_id;
     private String board_title;
     private String board_contents;
+    private Integer board_price;
     private Timestamp board_create_date;
 
 }
